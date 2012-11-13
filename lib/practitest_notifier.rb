@@ -4,15 +4,10 @@ require 'digest/md5'
 require 'uri'
 
 class PractitestNotifier
-  URL            = "http://localhost"
-  PORT           = 3000
-  API_KEY        = "1-32cc81"
-  API_SECRET_KEY = "51405b02519b"
-  PROJECT_ID     = '1'
 
-  def self.update(id, status, desc)
+  def self.update(pt_id, id, status = nil, desc = nil)
     params = {
-      :project_id => PROJECT_ID,
+      :project_id => Setting.plugin_practitest['project_id'],
       :integration_issue => {
         :external_id => id,
         :description => desc,
@@ -20,19 +15,23 @@ class PractitestNotifier
       }
     }
 
-    post_request("integration_issues/#{id}.json", params.to_json)
+    put_request("integration_issues/#{pt_id}.json", params.to_json)
   end
 
   protected
 
     def self.authorization
-      ts = Time.now.to_i
-      signature = Digest::MD5.hexdigest("#{API_KEY}#{API_SECRET_KEY}#{ts}")
-      {"Authorization" => "custom api_key=#{API_KEY}, signature=#{signature}, ts=#{ts}"}
+      key       = Setting.plugin_practitest['api_key']
+      secret    = Setting.plugin_practitest['api_secret']
+      ts        = Time.now.to_i
+      signature = Digest::MD5.hexdigest("#{key}#{secret}#{ts}")
+
+      {"Authorization" => "custom api_key=#{key}, signature=#{signature}, ts=#{ts}"}
     end
 
-    def post_request(path, json_body)
-      http = Net::HTTP.new(URL, PORT)
+    def self.put_request(path, json_body)
+      uri  = URI.parse(Setting.plugin_practitest['url'])
+      http = Net::HTTP.new(uri.host, uri.port)
       http.request_put("/api\/#{path}", json_body, authorization.merge({"Content-Type" => "application/json"}))
     end
 end
