@@ -1,0 +1,7 @@
+en:
+  practitest_settings: "Settings for PractiTest integration"
+  practitest_key: "API Key"
+  practitest_secret: "API Key secret"
+  practitest_project_id: "Practitest project ID"
+  practitest_url: 'Practitest Server URL'
+  

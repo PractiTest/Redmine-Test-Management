@@ -1,0 +1,24 @@
+<fieldset>
+  <legend><%= l(:practitest_settings) %></legend>
+
+  <p>
+    <label><%= l(:practitest_key) %></label>
+    <%= text_field_tag 'settings[api_key]', @settings['api_key'] %>
+  </p>
+
+  <p>
+    <label><%= l(:practitest_secret) %></label>
+    <%= text_field_tag 'settings[api_secret]', @settings['api_secret'] %>
+  </p>
+
+  <p>
+    <label><%= l(:practitest_project_id) %></label>
+    <%= text_field_tag 'settings[project_id]', @settings['project_id'] %>
+  </p>
+
+  <p>
+    <label><%= l(:practitest_url) %></label>
+    <%= text_field_tag 'settings[url]', @settings['url'] %>
+  </p>
+
+</fieldset>
