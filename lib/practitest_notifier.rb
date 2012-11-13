@@ -30,8 +30,10 @@ class PractitestNotifier
     end
 
     def self.put_request(path, json_body)
-      uri  = URI.parse(Setting.plugin_practitest['url'])
+      url = Setting.plugin_practitest['url']
+      uri  = URI.parse(url)
       http = Net::HTTP.new(uri.host, uri.port)
+      http.use_ssl = (url[0..4].downcase == "https")
       http.request_put("/api\/#{path}", json_body, authorization.merge({"Content-Type" => "application/json"}))
     end
 end
