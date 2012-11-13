@@ -1,21 +1,24 @@
 require_dependency 'issue'
 
-module PractitestListener
+module PractitestIssues
   def self.included(base)
     base.send(:include, InstanceMethods)
     base.class_eval do
-      after_save :practitest_notification
+      before_save :practitest_notify_changed
     end
   end
 
   module InstanceMethods
-    def practitest_notification
+    def practitest_notify_changed
       return unless pt_id = practitest_id
 
       if subject_changed? or status_id_changed? 
-        puts " -- Go 3"
-        PractitestNotifier.update(pt_id, status.name, subject)
+        update_practitest(pt_id)
       end
+    end
+
+    def update_practitest(pt_id = nil)
+      PractitestNotifier.update(pt_id || practitest_id, self.id, status.name, subject)
     end
 
     def practitest_id
@@ -25,8 +28,7 @@ module PractitestListener
         nil
       end
     end
+  end
+end    
 
-  end    
-end
-
-Issue.send(:include, PractitestListener)
+Issue.send(:include, PractitestIssues)

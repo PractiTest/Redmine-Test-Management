@@ -1,7 +1,8 @@
 require 'redmine'
 
-require_dependency 'practitest_listener'
 require_dependency 'practitest_notifier'
+require_dependency 'practitest_issues'
+require_dependency 'practitest_custom_fields'
 
 Redmine::Plugin.register :practitest do
   name 'Practitest plugin'
