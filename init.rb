@@ -15,7 +15,6 @@ Redmine::Plugin.register :practitest do
            :default => {
             'api_key'     => '',
             'api_secret'  => '',
-            'project_id'  => '',
             'url'         => 'https://prod.practitest.com'
           })
 end

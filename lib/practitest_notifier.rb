@@ -9,7 +9,6 @@ class PractitestNotifier
     return unless pt_id.present? and id.present?
 
     params = {
-      :project_id => Setting.plugin_practitest['project_id'],
       :integration_issue => {
         :external_id => id,
         :description => desc,
