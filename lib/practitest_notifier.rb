@@ -6,6 +6,8 @@ require 'uri'
 class PractitestNotifier
 
   def self.update(pt_id, id, status = nil, desc = nil)
+    return unless pt_id.present? and id.present?
+
     params = {
       :project_id => Setting.plugin_practitest['project_id'],
       :integration_issue => {
