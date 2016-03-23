@@ -1,3 +1,5 @@
+PT_VERSION = "0.1.0"
+
 require 'redmine'
 
 require_dependency 'practitest_notifier'
@@ -8,13 +10,12 @@ Redmine::Plugin.register :practitest do
   name 'Practitest plugin'
   author 'Practitest LTD'
   description 'Integrate Practitest with Redmine issues'
-  version '0.0.1'
-  author_url 'http://www.practitest.com'
+  version PT_VERSION
+  author_url 'https://www.practitest.com'
 
   settings(:partial => 'settings/practitest_settings',
            :default => {
-            'api_key'     => '',
-            'api_secret'  => '',
+            'api_token'  => '',
             'url'         => 'https://prod.practitest.com'
           })
 end

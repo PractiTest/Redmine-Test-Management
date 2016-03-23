@@ -1,6 +1,5 @@
 require 'net/http'
 require 'net/https'
-require 'digest/md5'
 require 'uri'
 
 class PractitestNotifier
@@ -16,25 +15,18 @@ class PractitestNotifier
       }
     }
 
-    put_request("integration_issues/#{pt_id}.json", params.to_json)
+    put_request("integration_issues/#{pt_id}.json?source=redmine_plugin&plugin_version=#{PT_VERSION}", params.to_json)
   end
 
   protected
 
-    def self.authorization
-      key       = Setting.plugin_practitest['api_key']
-      secret    = Setting.plugin_practitest['api_secret']
-      ts        = Time.now.to_i
-      signature = Digest::MD5.hexdigest("#{key}#{secret}#{ts}")
-
-      {"Authorization" => "custom api_key=#{key}, signature=#{signature}, ts=#{ts}"}
-    end
-
     def self.put_request(path, json_body)
+      api_token    = Setting.plugin_practitest['api_token']
+      headers = {"Authorization" => "custom api_token=#{api_token}", "Content-Type" => "application/json"}
       url = Setting.plugin_practitest['url']
       uri  = URI.parse(url)
       http = Net::HTTP.new(uri.host, uri.port)
       http.use_ssl = (uri.scheme == "https")
-      http.request_put("/api\/#{path}", json_body, authorization.merge({"Content-Type" => "application/json"}))
+      http.request_put("/api\/#{path}", json_body, headers)
     end
 end

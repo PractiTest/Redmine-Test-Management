@@ -2,13 +2,8 @@
   <legend><%= l(:practitest_settings) %></legend>
 
   <p>
-    <label><%= l(:practitest_key) %></label>
-    <%= text_field_tag 'settings[api_key]', @settings['api_key'] %>
-  </p>
-
-  <p>
-    <label><%= l(:practitest_secret) %></label>
-    <%= text_field_tag 'settings[api_secret]', @settings['api_secret'] %>
+    <label><%= l(:practitest_api_token) %></label>
+    <%= text_field_tag 'settings[api_token]', @settings['api_token'] %>
   </p>
 
   <p>

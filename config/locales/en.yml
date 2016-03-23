@@ -1,6 +1,5 @@
 en:
   practitest_settings: "Settings for PractiTest integration"
-  practitest_key: "API Key"
-  practitest_secret: "API Key secret"
+  practitest_api_token: "API Token"
   practitest_url: 'Practitest Server URL'
   
