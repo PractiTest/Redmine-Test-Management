@@ -27,6 +27,6 @@ class PractitestNotifier
       uri  = URI.parse(url)
       http = Net::HTTP.new(uri.host, uri.port)
       http.use_ssl = (uri.scheme == "https")
-      http.request_put("/api\/#{path}", json_body, headers)
+      http.request_put("/api/v1/#{path}", json_body, headers)
     end
 end

@@ -1,4 +1,4 @@
-PT_VERSION = "0.1.0"
+PT_VERSION = "1.1.0"
 
 require 'redmine'
 
@@ -16,6 +16,6 @@ Redmine::Plugin.register :practitest do
   settings(:partial => 'settings/practitest_settings',
            :default => {
             'api_token'  => '',
-            'url'         => 'https://prod.practitest.com'
+            'url'         => 'https://api.practitest.com'
           })
 end
